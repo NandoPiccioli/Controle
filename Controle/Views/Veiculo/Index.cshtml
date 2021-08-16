@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Controle.Models.Veiculo>
+
+
+
+    <td class="container p-3">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2 class="text-primary">Lista de Veículos</h2>
+            </div>
+            <div class="col-6">
+                <a asp-controller="Veiculo" asp-action="Create" class="btn btn-primary">Novo</a>
+            </div>
+        </div>
+        @*<form asp-controller="Veiculo" asp-action="Index">
+            <p>
+                Modelo: <input type="text" name="SearchString" />
+                <input type="submit" value="Buscar" />
+            </p>
+        </form>*@
+
+        @if (Model != null)
+        {
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-bordered table-striped" style="width:100%">
+                    <thead>
+                    <th>
+                        Código
+                    </th>
+                    <th>
+                        Descrição
+                    </th>
+                    </thead>
+                    <tbody>
+                        @foreach (var veiculo in Model)
+                        {
+                        <tr>
+                            <td>@veiculo.IDVeiculo</td>
+
+                            <td>Marca</td>
+                            <td>Modelo</td>
+
+                            <td>@veiculo.Ano</td>
+                            <td>@veiculo.ValorDeCompra</td>
+                            <td>@veiculo.ValorDeVenda</td>
+                            <td>@veiculo.Cor</td>
+                            <td>@veiculo.TipoCombustivel</td>
+                            <td> <img alt="@veiculo.IDVeiculo" src="data:image/jpg;base64,@Convert.ToBase64String(veiculo.ImageUpload)" width="100" height="100">  </td>
+
+                            <td width="30%">
+                                <div class="w-100 btn-group" role="group">
+                                    <a asp-controller="Veiculo" asp-action="Update" asp-route-Id="@veiculo.IDVeiculo" class="btn btn-primary mx-1">Editar</a>
+                                    <a asp-controller="Veiculo" asp-action="Delete" asp-route-Id="@veiculo.IDVeiculo" class="btn btn-danger mx-1">Deletar</a>
+                                </div>
+
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+
+            }
+        }
+        else
+        {
+            <h2>Não há veiculos cadastrados</h2>
+        }
+
+    </td>
+    <script type="text/javascript">
+        $(function () {
+            $("#dialog").dialog({
+                autoOpen: false,
+                modal: true,
+                height: 600,
+                width: 600,
+                title: "Zoom"
+            });
+            $(".Grid img").click(function () {
+                $('#dialog').html('');
+                $('#dialog').append($(this).clone());
+                $('#dialog').dialog('open');
+            });
+        });
+
+        function exibirMiniatura(input) {
+
+            // Apenas se for imagem
+            var mime = $(input).prop("files")[0].type;
+            if (mime.match("^image")) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('img#previa').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+
+                $('img#previa').show();
+            }
+            else {
+                $('img#previa').attr('src', "");
+                $('img#previa').hide();
+            }
+        }
+    </script>

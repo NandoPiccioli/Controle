@@ -1,0 +1,55 @@
+﻿@model Controle.Models.Modelos
+@{
+    ViewData["Title"] = "Create";
+}
+<h1>Cadastro de Modelos</h1>
+
+<form method="post" asp-action="Create">
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Adicionar Modelo</h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row" text-center>
+                    <div class="col-4">
+                        <label asp-for="Descricao"></label>
+                        <span asp-validation-for="Descricao" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <input asp-for="Descricao" class="form-control" />
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MarcaId, new { @class = "control-label col-md-2" })
+
+                    <div class="col-4">
+                        <input asp-for="Marca" class="form-control" />
+                    </div>
+
+                    @*<div class="col-md-10">
+            @Html.DropDownListFor(m => m.MarcaId,
+                           new SelectList(Model.Marcas, "IDMarca", "Descricao"),
+                           "Escolha uma Marca", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.MarcaId, "", new { @class = "text-danger" })
+        </div>*@
+                </div>
+                <div class="form-group row" text-center>
+                    <div class="col-8 offset-2 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-75" value="Salvar" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-danger w-75">Voltar</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
